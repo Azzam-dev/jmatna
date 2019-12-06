@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lancul/UIview/profileView.dart';
 
@@ -13,79 +14,20 @@ class friendScreen extends StatefulWidget {
 
 class _friendScreenState extends State<friendScreen>
     with TickerProviderStateMixin {
-  List<Widget> listViews = List<Widget>();
-  var scrollController = ScrollController();
-  double topBarOpacity = 0.0;
+  final _firestore = Firestore.instance;
 
   @override
   void initState() {
-    addAllListData();
-
     super.initState();
+    guidersStream();
   }
 
-  void addAllListData() {
-    var count = 5;
-
-    listViews.add(
-      ProfileView(
-        username: 'Azzam Al-Rashed',
-        bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
-        rating: '4.5',
-        languages: 'العربيَّة , English , 日本語',
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      ProfileView(
-        username: 'Azzam Al-Rashed',
-        bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
-        rating: '4.5',
-        languages: 'العربيَّة , English , 日本語',
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      ProfileView(
-        username: 'Azzam Al-Rashed',
-        bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
-        rating: '4.5',
-        languages: 'العربيَّة , English , 日本語',
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      ProfileView(
-        username: 'Azzam Al-Rashed',
-        bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
-        rating: '4.5',
-        languages: 'العربيَّة , English , 日本語',
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
+  void guidersStream() async {
+    await for (var snapshot in _firestore.collection('guiders').snapshots()) {
+      for (var guider in snapshot.documents) {
+        print(guider.data);
+      }
+    }
   }
 
   Future<bool> getData() async {
@@ -113,35 +55,36 @@ class _friendScreenState extends State<friendScreen>
   }
 
   Widget getMainListViewUI() {
-    return FutureBuilder(
-      future: getData(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('guiders').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         } else {
-          return Column(
-            children: <Widget>[
-              SizedBox(
-                height: 45,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  controller: scrollController,
-                  padding: EdgeInsets.only(
-                    top: AppBar().preferredSize.height +
-                        MediaQuery.of(context).padding.top +
-                        24,
-                    bottom: 62 + MediaQuery.of(context).padding.bottom,
-                  ),
-                  itemCount: listViews.length,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    widget.animationController.forward();
-                    return listViews[index];
-                  },
-                ),
-              ),
-            ],
+          final guiders = snapshot.data.documents;
+          List<ProfileView> guiderWidgets = [];
+          for (var guider in guiders) {
+            final guiderName = guider.data['name'];
+            final guiderBio = guider.data['bio'];
+            final guiderVerified = guider.data['verified'];
+            final guiderRating = guider.data['rating'];
+            final guiderImageUrl = guider.data['imageUrl'];
+            final guiderLanguages = guider.data['languages'];
+
+            final guiderWidget = ProfileView(
+              imageURL: '$guiderImageUrl',
+              username: '$guiderName',
+              bio: '$guiderBio',
+              rating: '$guiderRating',
+              languages: '$guiderLanguages',
+            );
+            guiderWidgets.add(guiderWidget);
+          }
+          return ListView(
+            padding: EdgeInsets.symmetric(vertical: 160),
+            children: guiderWidgets,
           );
         }
       },

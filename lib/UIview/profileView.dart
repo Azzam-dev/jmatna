@@ -3,226 +3,207 @@ import 'package:flutter/material.dart';
 import '../appTheme.dart';
 
 class ProfileView extends StatelessWidget {
-  final NetworkImage userImage;
+  final String imageURL;
   final String username;
   final String bio;
   final bool verified;
   final String rating;
   final String languages;
-  final AnimationController animationController;
-  final Animation animation;
 
-  const ProfileView(
-      {Key key,
-      this.userImage,
-      this.username: "",
-      this.bio: "",
-      this.verified: false,
-      this.rating: "",
-      this.languages: "",
-      this.animationController,
-      this.animation})
-      : super(key: key);
+  const ProfileView({
+    Key key,
+    this.imageURL = "",
+    this.username: "",
+    this.bio: "",
+    this.verified: false,
+    this.rating: "",
+    this.languages: "",
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: animationController,
-      builder: (BuildContext context, Widget child) {
-        return FadeTransition(
-          opacity: animation,
-          child: new Transform(
-            transform: new Matrix4.translationValues(
-                0.0, 30 * (1.0 - animation.value), 0.0),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 24, right: 24, top: 16, bottom: 18),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    AppTheme.gradientStart,
-                    AppTheme.gradientEnd,
-                  ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(60.0),
-                      bottomLeft: Radius.circular(8.0),
-                      bottomRight: Radius.circular(60.0),
-                      topRight: Radius.circular(8.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: AppTheme.gradientEnd.withOpacity(0.6),
-                        offset: Offset(1.1, 1.1),
-                        blurRadius: 10.0),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          CircleAvatar(
-                            radius: 50.0,
-                            backgroundColor: Colors.white,
-                            backgroundImage: userImage,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      username,
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontName,
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 22,
-                                        letterSpacing: 0.0,
-                                        color: AppTheme.white,
-                                      ),
-                                    ),
-                                    if (verified)
-                                      Icon(
-                                        Icons.verified_user,
-                                        color: AppTheme.white,
-                                        size: 20,
-                                      ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                  width: 200,
-                                  child: Text(
-                                    bio,
-                                    textAlign: TextAlign.left,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 4,
-                                    style: TextStyle(
-                                      fontFamily: AppTheme.fontName,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 15,
-                                      letterSpacing: 0.0,
-                                      color:
-                                          AppTheme.nearlyWhite.withOpacity(0.8),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, bottom: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 18),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            AppTheme.gradientStart,
+            AppTheme.gradientEnd,
+          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(60.0),
+              bottomLeft: Radius.circular(8.0),
+              bottomRight: Radius.circular(60.0),
+              topRight: Radius.circular(8.0)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+                color: AppTheme.gradientEnd.withOpacity(0.6),
+                offset: Offset(1.1, 1.1),
+                blurRadius: 10.0),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundColor: Colors.white,
+                    backgroundImage: NetworkImage(imageURL),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4),
-                                      child: Icon(
-                                        Icons.star,
-                                        color: AppTheme.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text(
-                                        rating,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontName,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          letterSpacing: 0.0,
-                                          color: AppTheme.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4),
-                                      child: Icon(
-                                        Icons.language,
-                                        color: AppTheme.white,
-                                        size: 20,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 4.0),
-                                      child: Text(
-                                        languages,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: AppTheme.fontName,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 18,
-                                          letterSpacing: 0.0,
-                                          color: AppTheme.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            Text(
+                              username,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontFamily: AppTheme.fontName,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 22,
+                                letterSpacing: 0.0,
+                                color: AppTheme.white,
+                              ),
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppTheme.nearlyWhite,
-                                shape: BoxShape.circle,
-                                boxShadow: <BoxShadow>[
-                                  BoxShadow(
-                                      color:
-                                          AppTheme.nearlyBlack.withOpacity(0.4),
-                                      offset: Offset(8.0, 8.0),
-                                      blurRadius: 8.0),
-                                ],
+                            if (verified)
+                              Icon(
+                                Icons.verified_user,
+                                color: AppTheme.white,
+                                size: 20,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Icon(
-                                  Icons.settings,
-                                  color: HexColor("#6F56E8"),
-                                  size: 25,
-                                ),
-                              ),
-                            )
                           ],
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          width: 200,
+                          child: Text(
+                            bio,
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 4,
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontName,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                              letterSpacing: 0.0,
+                              color: AppTheme.nearlyWhite.withOpacity(0.8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ),
+              SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 20, bottom: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Icon(
+                                Icons.star,
+                                color: AppTheme.white,
+                                size: 20,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4.0),
+                              child: Text(
+                                rating,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontName,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  letterSpacing: 0.0,
+                                  color: AppTheme.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: Icon(
+                                Icons.language,
+                                color: AppTheme.white,
+                                size: 20,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 4.0),
+                              child: Text(
+                                languages,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: AppTheme.fontName,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  letterSpacing: 0.0,
+                                  color: AppTheme.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.nearlyWhite,
+                        shape: BoxShape.circle,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: AppTheme.nearlyBlack.withOpacity(0.4),
+                              offset: Offset(8.0, 8.0),
+                              blurRadius: 8.0),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Icon(
+                          Icons.settings,
+                          color: HexColor("#6F56E8"),
+                          size: 25,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

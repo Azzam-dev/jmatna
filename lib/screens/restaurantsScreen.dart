@@ -21,116 +21,22 @@ class _restaurantsScreenState extends State<restaurantsScreen>
 
   List<Widget> listViews = List<Widget>();
   var scrollController = ScrollController();
-  double topBarOpacity = 0.0;
+  double topBarOpacity = 1.0;
 
   @override
   void initState() {
-    topBarAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: widget.animationController,
-        curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
-    addAllListData();
-
-    scrollController.addListener(() {
-      if (scrollController.offset >= 24) {
-        if (topBarOpacity != 1.0) {
-          setState(() {
-            topBarOpacity = 1.0;
-          });
-        }
-      } else if (scrollController.offset <= 24 &&
-          scrollController.offset >= 0) {
-        if (topBarOpacity != scrollController.offset / 24) {
-          setState(() {
-            topBarOpacity = scrollController.offset / 24;
-          });
-        }
-      } else if (scrollController.offset <= 0) {
-        if (topBarOpacity != 0.0) {
-          setState(() {
-            topBarOpacity = 0.0;
-          });
-        }
-      }
-    });
     super.initState();
 
-    getRestaurants();
+    restaurantsStream();
   }
 
-  void getRestaurants() async {
-    final restaurants =
-        await _firestore.collection('restaurants').getDocuments();
-    for (var restaurant in restaurants.documents) {
-      print(restaurant.data);
+  void restaurantsStream() async {
+    await for (var snapshot
+        in _firestore.collection('restaurants').snapshots()) {
+      for (var restaurant in snapshot.documents) {
+        print(restaurant.data);
+      }
     }
-  }
-
-  void addAllListData() {
-    var count = 5;
-
-    listViews.add(
-      PostView(
-        imagePath:
-            'https://www.tareekaa.com/wp-content/uploads/2017/02/مرقوق-بالدجاج.jpg',
-        titleTxt: 'Margoog | مرقوق',
-        subTxt: 'Riyadh',
-        rating: 4.5,
-        priceTxt: 20,
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      PostView(
-        imagePath:
-            'https://www.tareekaa.com/wp-content/uploads/2017/02/مرقوق-بالدجاج.jpg',
-        titleTxt: 'Margoog | مرقوق',
-        subTxt: 'Riyadh',
-        rating: 4.5,
-        priceTxt: 20,
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      PostView(
-        imagePath:
-            'https://www.tareekaa.com/wp-content/uploads/2017/02/مرقوق-بالدجاج.jpg',
-        titleTxt: 'Margoog | مرقوق',
-        subTxt: 'Riyadh',
-        rating: 4.5,
-        priceTxt: 20,
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      PostView(
-        imagePath:
-            'https://www.tareekaa.com/wp-content/uploads/2017/02/مرقوق-بالدجاج.jpg',
-        titleTxt: 'Margoog | مرقوق',
-        subTxt: 'Riyadh',
-        rating: 4.5,
-        priceTxt: 20,
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
   }
 
   Future<bool> getData() async {
@@ -158,26 +64,38 @@ class _restaurantsScreenState extends State<restaurantsScreen>
   }
 
   Widget getMainListViewUI() {
-    return FutureBuilder(
-      future: getData(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('restaurants').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox();
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         } else {
-          return ListView.builder(
-            controller: scrollController,
+          final restaurants = snapshot.data.documents;
+          List<PostView> restaurantWidgets = [];
+          for (var restaurant in restaurants) {
+            final name = restaurant.data['name'];
+            final rating = restaurant.data['rating'].toDouble();
+            final imageUrl = restaurant.data['imageUrl'];
+            final location = restaurant.data['location'];
+
+            final guiderWidget = PostView(
+              imagePath: '$imageUrl',
+              titleTxt: '$name',
+              subTxt: '$location',
+              rating: rating,
+            );
+            restaurantWidgets.add(guiderWidget);
+          }
+          return ListView(
             padding: EdgeInsets.only(
               top: AppBar().preferredSize.height +
                   MediaQuery.of(context).padding.top +
                   24,
               bottom: 62 + MediaQuery.of(context).padding.bottom,
             ),
-            itemCount: listViews.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) {
-              widget.animationController.forward();
-              return listViews[index];
-            },
+            children: restaurantWidgets,
           );
         }
       },
@@ -190,60 +108,48 @@ class _restaurantsScreenState extends State<restaurantsScreen>
         AnimatedBuilder(
           animation: widget.animationController,
           builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-              opacity: topBarAnimation,
-              child: new Transform(
-                transform: new Matrix4.translationValues(
-                    0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: AppTheme.white.withOpacity(topBarOpacity),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(32.0),
-                    ),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: AppTheme.grey.withOpacity(0.4 * topBarOpacity),
-                          offset: Offset(1.1, 1.1),
-                          blurRadius: 10.0),
-                    ],
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: MediaQuery.of(context).padding.top,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: 16,
-                            right: 16,
-                            top: 16 - 8.0 * topBarOpacity,
-                            bottom: 12 - 8.0 * topBarOpacity),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Restaurants",
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontFamily: AppTheme.fontName,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 22 + 6 - 6 * topBarOpacity,
-                                    letterSpacing: 1.2,
-                                    color: AppTheme.darkerText,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+            return Container(
+              decoration: BoxDecoration(
+                color: AppTheme.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(32.0),
                 ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: AppTheme.grey.withOpacity(0.4),
+                      offset: Offset(1.1, 1.1),
+                      blurRadius: 10.0),
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    height: MediaQuery.of(context).padding.top,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20.0, top: 10, bottom: 10),
+                          child: Text(
+                            "Restaurants",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontFamily: AppTheme.fontName,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 28,
+                              letterSpacing: 1.2,
+                              color: AppTheme.darkerText,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
             );
           },
