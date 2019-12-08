@@ -29,7 +29,6 @@ class _ChewieListItemState extends State<ChewieListItem> {
       aspectRatio: 16 / 9,
       // Prepare the video to be played and display the first frame
       autoInitialize: true,
-      autoPlay: true,
       looping: widget.looping,
       // Errors can occur for example when trying to play a video
       // from a non-existent URL
@@ -46,16 +45,10 @@ class _ChewieListItemState extends State<ChewieListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.transparent,
-      margin: EdgeInsets.only(left: 25, right: 25, bottom: 15),
-      elevation: 8,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(16.0)),
-        child: Chewie(
-          controller: _chewieController,
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Chewie(
+        controller: _chewieController,
       ),
     );
   }
