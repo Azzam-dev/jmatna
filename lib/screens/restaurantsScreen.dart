@@ -81,9 +81,9 @@ class _restaurantsScreenState extends State<restaurantsScreen>
             final location = restaurant.data['location'];
 
             final guiderWidget = PostView(
-              imagePath: '$imageUrl',
-              titleTxt: '$name',
-              subTxt: '$location',
+              imageURL: '$imageUrl',
+              name: '$name',
+              location: '$location',
               rating: rating,
             );
             restaurantWidgets.add(guiderWidget);

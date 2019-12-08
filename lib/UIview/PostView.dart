@@ -6,17 +6,17 @@ import '../appTheme.dart';
 
 class PostView extends StatelessWidget {
   final VoidCallback callback;
-  final String imagePath;
-  final String titleTxt;
-  final String subTxt;
+  final String imageURL;
+  final String name;
+  final String location;
   final double rating;
 
   const PostView(
       {Key key,
-      this.imagePath,
-      this.titleTxt,
-      this.subTxt,
-      this.rating,
+      this.imageURL = '',
+      this.name = '',
+      this.location = '',
+      this.rating = 0.0,
       this.callback})
       : super(key: key);
 
@@ -54,7 +54,7 @@ class PostView extends StatelessWidget {
                     AspectRatio(
                       aspectRatio: 2,
                       child: Image.network(
-                        imagePath,
+                        imageURL,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -74,7 +74,7 @@ class PostView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      titleTxt,
+                                      name,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
@@ -97,7 +97,7 @@ class PostView extends StatelessWidget {
                                           width: 4,
                                         ),
                                         Text(
-                                          subTxt,
+                                          location,
                                           style: TextStyle(
                                               fontSize: 14,
                                               color:

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lancul/UIview/GuideProfileView.dart';
 import 'package:lancul/UIview/profileView.dart';
 
 import '../appTheme.dart';
@@ -64,20 +65,20 @@ class _friendScreenState extends State<friendScreen>
           );
         } else {
           final guiders = snapshot.data.documents;
-          List<ProfileView> guiderWidgets = [];
+          List<GuideProfileView> guiderWidgets = [];
           for (var guider in guiders) {
             final guiderName = guider.data['name'];
             final guiderBio = guider.data['bio'];
             final guiderVerified = guider.data['verified'];
-            final guiderRating = guider.data['rating'];
+            final guiderRating = guider.data['rating'].toDouble();
             final guiderImageUrl = guider.data['imageUrl'];
             final guiderLanguages = guider.data['languages'];
 
-            final guiderWidget = ProfileView(
+            final guiderWidget = GuideProfileView(
               imageURL: '$guiderImageUrl',
               username: '$guiderName',
               bio: '$guiderBio',
-              rating: '$guiderRating',
+              rating: guiderRating,
               languages: '$guiderLanguages',
             );
             guiderWidgets.add(guiderWidget);

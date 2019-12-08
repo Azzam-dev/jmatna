@@ -1,7 +1,9 @@
 import 'package:lancul/UIview/MenuItemView.dart';
+import 'package:lancul/UIview/GuideProfileView.dart';
 import 'package:lancul/UIview/titleView.dart';
 import 'package:lancul/UIview/profileView.dart';
 import 'package:flutter/material.dart';
+import 'package:lancul/designCourse/models/category.dart';
 import 'package:lancul/screens/menuScreems/aboutUsScreen.dart';
 import 'package:lancul/screens/menuScreems/favoriteScreen.dart';
 import 'package:lancul/screens/menuScreems/feedbackScreen.dart';
@@ -111,23 +113,6 @@ class _myProfileScreenState extends State<myProfileScreen>
 
     listViews.add(
       MenuItemView(
-        titleTxt: 'messages',
-        navigateScreen: MessagesScreen(),
-        menuIcon: Icon(Icons.chat, color: Colors.orange),
-        backgroundGradient: LinearGradient(colors: [
-          AppTheme.white,
-          AppTheme.nearlyWhite,
-        ], begin: Alignment.topLeft, end: Alignment.bottomRight),
-        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-
-    listViews.add(
-      MenuItemView(
         titleTxt: 'Help',
         navigateScreen: HelpScreen(),
         menuIcon: Icon(Icons.help, color: Colors.orange),
@@ -199,6 +184,23 @@ class _myProfileScreenState extends State<myProfileScreen>
         titleTxt: 'About Us',
         navigateScreen: AboutUsScreen(),
         menuIcon: Icon(Icons.info, color: Colors.orange),
+        backgroundGradient: LinearGradient(colors: [
+          AppTheme.white,
+          AppTheme.nearlyWhite,
+        ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+        animation: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: widget.animationController,
+            curve:
+                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
+        animationController: widget.animationController,
+      ),
+    );
+
+    listViews.add(
+      MenuItemView(
+        titleTxt: 'Privacy policy',
+        navigateScreen: AboutUsScreen(),
+        menuIcon: Icon(Icons.book, color: Colors.orange),
         backgroundGradient: LinearGradient(colors: [
           AppTheme.white,
           AppTheme.nearlyWhite,

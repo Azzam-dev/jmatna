@@ -1,4 +1,4 @@
-import 'package:lancul/designCourse/categoryListView.dart';
+import 'package:lancul/UIview/GuideProfileView.dart';
 import 'package:lancul/designCourse/courseInfoScreen.dart';
 import 'package:lancul/designCourse/popularCourseListView.dart';
 import 'package:lancul/main.dart';
@@ -88,11 +88,6 @@ class _DesignCourseHomeScreenState extends State<DesignCourseHomeScreen> {
         ),
         SizedBox(
           height: 16,
-        ),
-        CategoryListView(
-          callBack: () {
-            moveTo();
-          },
         ),
       ],
     );

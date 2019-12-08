@@ -75,9 +75,9 @@ class _experienceScreenState extends State<experienceScreen>
             final location = restaurant.data['location'];
 
             final guiderWidget = PostView(
-              imagePath: '$imageUrl',
-              titleTxt: '$name',
-              subTxt: '$location',
+              imageURL: '$imageUrl',
+              name: '$name',
+              location: '$location',
               rating: rating,
             );
             restaurantWidgets.add(guiderWidget);
