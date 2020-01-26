@@ -78,12 +78,14 @@ class ProfileView extends StatelessWidget {
                                 color: AppTheme.white,
                               ),
                             ),
-                            if (verified)
-                              Icon(
-                                Icons.verified_user,
-                                color: AppTheme.white,
-                                size: 20,
-                              ),
+//                            if (verified)
+//                              {
+//                                Icon(
+//                                  Icons.verified_user,
+//                                  color: AppTheme.white,
+//                                  size: 20,
+//                                ),
+//                              }
                           ],
                         ),
                         SizedBox(
