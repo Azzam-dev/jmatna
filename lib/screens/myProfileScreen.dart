@@ -4,13 +4,13 @@ import 'package:lancul/UIview/titleView.dart';
 import 'package:lancul/UIview/profileView.dart';
 import 'package:flutter/material.dart';
 import 'package:lancul/designCourse/models/category.dart';
-import 'package:lancul/screens/menuScreems/aboutUsScreen.dart';
-import 'package:lancul/screens/menuScreems/favoriteScreen.dart';
-import 'package:lancul/screens/menuScreems/feedbackScreen.dart';
-import 'package:lancul/screens/menuScreems/helpScreen.dart';
-import 'package:lancul/screens/menuScreems/inviteFriendScreen.dart';
-import 'package:lancul/screens/menuScreems/messagesScreen.dart';
-import 'package:lancul/screens/menuScreems/rateTheAppScreen.dart';
+import 'package:lancul/screens/menuScreens/aboutUsScreen.dart';
+import 'package:lancul/screens/menuScreens/favoriteScreen.dart';
+import 'package:lancul/screens/menuScreens/feedbackScreen.dart';
+import 'package:lancul/screens/menuScreens/helpScreen.dart';
+import 'package:lancul/screens/menuScreens/inviteFriendScreen.dart';
+import 'package:lancul/screens/menuScreens/messagesScreen.dart';
+import 'package:lancul/screens/menuScreens/rateTheAppScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../appTheme.dart';
@@ -67,17 +67,17 @@ class _myProfileScreenState extends State<myProfileScreen>
     });
     super.initState();
   }
-
+/**/
   void addAllListData() {
     var count = 5;
 
     listViews.add(
       ProfileView(
         imageURL:
-            "https://instagram.fdmm2-2.fna.fbcdn.net/vp/68aad55c6de07d6527edba218f789ff2/5E62FCE3/t51.2885-19/s150x150/43507749_320635631821770_8561044253965287424_n.jpg?_nc_ht=instagram.fdmm2-2.fna.fbcdn.net",
-        username: 'Azzam Al-Rashed',
+        "https://yt3.ggpht.com/a/AGF-l79Dl2R1oDJa5q4IZd82LPoABKp4gDVjJCrS3w=s900-c-k-c0xffffffff-no-rj-mo",
+        username: 'azzam Alrashed',
         bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
+            '!! .:: تم التهكير بنجاح ::. !!',
         rating: '4.5',
         languages: 'العربيَّة , English , 日本語',
       ),

@@ -1,5 +1,6 @@
 import 'package:lancul/main.dart';
 import 'package:flutter/material.dart';
+import 'package:lancul/screens/editMyProfile.dart';
 import '../appTheme.dart';
 
 class ProfileView extends StatelessWidget {
@@ -179,23 +180,31 @@ class ProfileView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.nearlyWhite,
-                        shape: BoxShape.circle,
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                              color: AppTheme.nearlyBlack.withOpacity(0.4),
-                              offset: Offset(8.0, 8.0),
-                              blurRadius: 8.0),
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Icon(
-                          Icons.settings,
-                          color: HexColor("#6F56E8"),
-                          size: 25,
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => EditMyProfileScreen()),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppTheme.nearlyWhite,
+                          shape: BoxShape.circle,
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: AppTheme.nearlyBlack.withOpacity(0.4),
+                                offset: Offset(8.0, 8.0),
+                                blurRadius: 8.0),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Icon(
+                            Icons.settings,
+                            color: HexColor("#6F56E8"),
+                            size: 25,
+                          ),
                         ),
                       ),
                     )
