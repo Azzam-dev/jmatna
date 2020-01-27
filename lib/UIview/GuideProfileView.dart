@@ -3,12 +3,12 @@ import 'package:lancul/main.dart';
 import 'package:flutter/material.dart';
 
 class GuideProfileView extends StatelessWidget {
-  final VoidCallback callback;
   String username;
   String bio;
   String languages;
   double rating;
   String imageURL;
+  final Widget chatScreen;
 
   GuideProfileView(
       {Key key,
@@ -17,14 +17,17 @@ class GuideProfileView extends StatelessWidget {
       this.bio = '',
       this.languages = '',
       this.rating = 0.0,
-      this.callback})
+      @required this.chatScreen})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: Colors.transparent,
       onTap: () {
-        callback();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => chatScreen),
+        );
       },
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0),

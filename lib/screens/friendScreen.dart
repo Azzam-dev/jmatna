@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lancul/UIview/GuideProfileView.dart';
-import 'package:lancul/UIview/profileView.dart';
+import 'package:lancul/screens/chat_screen.dart';
 
 import '../appTheme.dart';
 
@@ -80,6 +80,7 @@ class _friendScreenState extends State<friendScreen>
               bio: '$guiderBio',
               rating: guiderRating,
               languages: '$guiderLanguages',
+              chatScreen: ChatScreen(),
             );
             guiderWidgets.add(guiderWidget);
           }
