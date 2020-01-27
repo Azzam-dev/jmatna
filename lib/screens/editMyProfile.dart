@@ -94,7 +94,7 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Text(
-                                    'Share',
+                                    'Save',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       color: Colors.white,
