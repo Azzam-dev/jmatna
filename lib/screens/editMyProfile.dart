@@ -1,5 +1,7 @@
 import 'package:lancul/appTheme.dart';
 import 'package:flutter/material.dart';
+import 'package:lancul/main.dart';
+import 'package:lancul/style/theme.dart' as Theme;
 
 class EditMyProfileScreen extends StatefulWidget {
   @override
@@ -40,24 +42,32 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
                         )
                     )),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 8),
-                child: Text(
-                  'Edit Your Profile',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                    decoration: new BoxDecoration(
+                      color: Colors.deepOrangeAccent,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: TextField(
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(top: 16),
-                child: Text(
-                  "Are you one of those who makes everything\n at the last moment?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                    decoration: new BoxDecoration(
+                      color: Colors.deepOrangeAccent,
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
                 ),
               ),
               Expanded(
@@ -65,10 +75,10 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Container(
-                      width: 120,
-                      height: 40,
+                      width: 200,
+                      height: 60,
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Colors.deepOrangeAccent,
                         borderRadius: BorderRadius.all(Radius.circular(4.0)),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
@@ -77,35 +87,23 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
                               blurRadius: 8.0),
                         ],
                       ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.share,
-                                  color: Colors.white,
-                                  size: 22,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text(
-                                    'Save',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                      child: MaterialButton(
+                        onPressed: (){},
+                      highlightColor: Colors.transparent,
+                      splashColor: Theme.Colors.loginGradientEnd,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 42.0),
+                        child: Text(
+                          "SAVE",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25.0,
+                              fontFamily: "WorkSansBold"),
                         ),
                       ),
+                    ),
                     ),
                   ),
                 ),
