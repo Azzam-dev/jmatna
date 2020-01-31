@@ -24,7 +24,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 18),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 16, bottom: 18),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -74,19 +74,11 @@ class ProfileView extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: AppTheme.fontName,
                                 fontWeight: FontWeight.normal,
-                                fontSize: 22,
+                                fontSize: 20,
                                 letterSpacing: 0.0,
                                 color: AppTheme.white,
                               ),
                             ),
-//                            if (verified)
-//                              {
-//                                Icon(
-//                                  Icons.verified_user,
-//                                  color: AppTheme.white,
-//                                  size: 20,
-//                                ),
-//                              }
                           ],
                         ),
                         SizedBox(
@@ -117,7 +109,7 @@ class ProfileView extends StatelessWidget {
                 height: 15,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20, bottom: 5),
+                padding: const EdgeInsets.only(bottom: 5),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +176,8 @@ class ProfileView extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => EditMyProfileScreen()),
+                          MaterialPageRoute(
+                              builder: (context) => EditMyProfileScreen()),
                         );
                       },
                       child: Container(

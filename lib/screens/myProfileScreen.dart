@@ -68,25 +68,21 @@ class _myProfileScreenState extends State<myProfileScreen>
     super.initState();
   }
 
-void inputUserData() async {
+  Future<void> addAllListData() async {
+    var count = 5;
+
     final FirebaseUser user = await _auth.currentUser();
-    final uid = user.uid;
-    // here you write the codes to input the data into firestore
     listViews.add(
       ProfileView(
         imageURL:
             "https://instagram.fdmm2-2.fna.fbcdn.net/vp/68aad55c6de07d6527edba218f789ff2/5E62FCE3/t51.2885-19/s150x150/43507749_320635631821770_8561044253965287424_n.jpg?_nc_ht=instagram.fdmm2-2.fna.fbcdn.net",
-        username: uid,
+        username: user.email,
         bio:
-            '!! .:: تم التهكير بنجاح ::. !!',
+            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
         rating: '4.5',
         languages: 'العربيَّة , English , 日本語',
       ),
     );
-  }
-
-  void addAllListData() {
-    var count = 5;
 
     listViews.add(
       TitleView(
