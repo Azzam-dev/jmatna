@@ -1,20 +1,16 @@
 import 'package:lancul/UIview/MenuItemView.dart';
-import 'package:lancul/UIview/GuideProfileView.dart';
 import 'package:lancul/UIview/titleView.dart';
 import 'package:lancul/UIview/profileView.dart';
 import 'package:flutter/material.dart';
-import 'package:lancul/designCourse/models/category.dart';
 import 'package:lancul/screens/menuScreens/aboutUsScreen.dart';
 import 'package:lancul/screens/menuScreens/favoriteScreen.dart';
 import 'package:lancul/screens/menuScreens/feedbackScreen.dart';
 import 'package:lancul/screens/menuScreens/helpScreen.dart';
 import 'package:lancul/screens/menuScreens/inviteFriendScreen.dart';
-import 'package:lancul/screens/menuScreens/messagesScreen.dart';
 import 'package:lancul/screens/menuScreens/rateTheAppScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../appTheme.dart';
-import '../main.dart';
 import 'login_screen.dart';
 
 class myProfileScreen extends StatefulWidget {
