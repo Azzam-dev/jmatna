@@ -19,6 +19,7 @@ class GuideProfileView extends StatelessWidget {
       this.rating = 0.0,
       @required this.chatScreen})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

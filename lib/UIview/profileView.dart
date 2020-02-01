@@ -21,6 +21,22 @@ class ProfileView extends StatelessWidget {
     this.languages: "",
   }) : super(key: key);
 
+  Widget UserImage() {
+    if (imageURL != "") {
+      return CircleAvatar(
+        radius: 50.0,
+        backgroundColor: Colors.white,
+        backgroundImage: NetworkImage(imageURL),
+      );
+    } else {
+      return CircleAvatar(
+        radius: 50.0,
+        backgroundColor: Colors.white,
+        backgroundImage: AssetImage("assets/images/generic-user-purple.png"),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -53,11 +69,7 @@ class ProfileView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CircleAvatar(
-                    radius: 50.0,
-                    backgroundColor: Colors.white,
-                    backgroundImage: NetworkImage(imageURL),
-                  ),
+                  UserImage(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(

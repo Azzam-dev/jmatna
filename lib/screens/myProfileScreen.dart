@@ -70,11 +70,9 @@ class _myProfileScreenState extends State<myProfileScreen>
     final FirebaseUser user = await _auth.currentUser();
     listViews.add(
       ProfileView(
-        imageURL:
-            "https://instagram.fdmm2-2.fna.fbcdn.net/vp/68aad55c6de07d6527edba218f789ff2/5E62FCE3/t51.2885-19/s150x150/43507749_320635631821770_8561044253965287424_n.jpg?_nc_ht=instagram.fdmm2-2.fna.fbcdn.net",
+        imageURL: "",
         username: user.email,
-        bio:
-            'I am from Saudi Arabia and I speak fluent English and study in Japan undergraduate',
+        bio: 'user.bio',
         rating: '4.5',
         languages: 'العربيَّة , English , 日本語',
       ),

@@ -28,18 +28,16 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top, left: 10, right: 10),
-              child: Container(
-                  width: 150.0,
-                  height: 150.0,
-                  decoration: new BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: new DecorationImage(
-                          fit: BoxFit.fill,
-                          image: new NetworkImage(
-                              "https://instagram.fdmm2-2.fna.fbcdn.net/vp/68aad55c6de07d6527edba218f789ff2/5E62FCE3/t51.2885-19/s150x150/43507749_320635631821770_8561044253965287424_n.jpg?_nc_ht=instagram.fdmm2-2.fna.fbcdn.net")))),
-            ),
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).padding.top,
+                    left: 10,
+                    right: 10),
+                child: CircleAvatar(
+                  radius: 50.0,
+                  backgroundColor: Colors.white,
+                  backgroundImage:
+                      AssetImage("assets/images/generic-user-purple.png"),
+                )),
             SizedBox(
               height: 20,
             ),
